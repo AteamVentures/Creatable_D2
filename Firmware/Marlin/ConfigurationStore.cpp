@@ -72,16 +72,14 @@ void Config_StoreSettings()
   EEPROM_WRITE_VAR(i,absPreheatFanSpeed);
   EEPROM_WRITE_VAR(i,zprobe_zoffset);
 
-  EEPROM_WRITE_VAR(i,bed_level[0][0]);
-  EEPROM_WRITE_VAR(i,bed_level[0][1]);
-  EEPROM_WRITE_VAR(i,bed_level[0][2]);
-  EEPROM_WRITE_VAR(i,bed_level[1][0]);
-  EEPROM_WRITE_VAR(i,bed_level[1][1]);
-  EEPROM_WRITE_VAR(i,bed_level[1][2]);
-  EEPROM_WRITE_VAR(i,bed_level[2][0]);
-  EEPROM_WRITE_VAR(i,bed_level[2][1]);
-  EEPROM_WRITE_VAR(i,bed_level[2][2]);
-  
+#ifdef ACCURATE_BED_LEVELING
+  for (int x = 0; x < ACCURATE_BED_LEVELING_POINTS; x++) {
+    for (int y = 0; y < ACCURATE_BED_LEVELING_POINTS; y++) {
+        EEPROM_WRITE_VAR(i,bed_level[x][y]);
+    }
+  }
+#endif
+
   #ifdef ENABLE_Z_OFFSET
   EEPROM_WRITE_VAR(i,levelOffset);
   #endif
@@ -183,22 +181,21 @@ void Config_PrintSettings()
     SERIAL_ECHOLN(""); 
 #endif
 
+#ifdef ACCURATE_BED_LEVELING
     SERIAL_ECHO_START;
     SERIAL_ECHOLNPGM("bed_level :");
     SERIAL_ECHO_START;
-    SERIAL_ECHOPAIR(" bed_level[0][0]" ,bed_level[0][0]); 
-    SERIAL_ECHOPAIR(" bed_level[0][1]" ,bed_level[0][1]); 
-    SERIAL_ECHOPAIR(" bed_level[0][2]" ,bed_level[0][2]); 
-    SERIAL_ECHOLN(""); 
-    SERIAL_ECHOPAIR(" bed_level[1][0]" ,bed_level[1][0]); 
-    SERIAL_ECHOPAIR(" bed_level[1][1]" ,bed_level[1][1]); 
-    SERIAL_ECHOPAIR(" bed_level[1][2]" ,bed_level[1][2]); 
-    SERIAL_ECHOLN(""); 
-    SERIAL_ECHOPAIR(" bed_level[2][0]" ,bed_level[2][0]); 
-    SERIAL_ECHOPAIR(" bed_level[2][1]" ,bed_level[2][1]); 
-    SERIAL_ECHOPAIR(" bed_level[2][2]" ,bed_level[2][2]); 
-    SERIAL_ECHOLN(""); 
-    
+
+  for (int x = 0; x < ACCURATE_BED_LEVELING_POINTS; x++) {
+    for (int y = 0; y < ACCURATE_BED_LEVELING_POINTS; y++) {
+        SERIAL_ECHOPAIR(" bed_level[" ,x);
+        SERIAL_ECHOPAIR("][" ,y);SERIAL_ECHOPGM("]");
+        SERIAL_ECHOPAIR(" ",bed_level[x][y]);
+    }
+        SERIAL_ECHOLN("");
+  }
+#endif
+
 } 
 #endif
 
@@ -244,17 +241,14 @@ void Config_RetrieveSettings()
         EEPROM_READ_VAR(i,absPreheatHPBTemp);
         EEPROM_READ_VAR(i,absPreheatFanSpeed);
         EEPROM_READ_VAR(i,zprobe_zoffset);
-        
-        EEPROM_READ_VAR(i,bed_level[0][0]);
-        EEPROM_READ_VAR(i,bed_level[0][1]);
-        EEPROM_READ_VAR(i,bed_level[0][2]);
-        EEPROM_READ_VAR(i,bed_level[1][0]);
-        EEPROM_READ_VAR(i,bed_level[1][1]);
-        EEPROM_READ_VAR(i,bed_level[1][2]);
-        EEPROM_READ_VAR(i,bed_level[2][0]);
-        EEPROM_READ_VAR(i,bed_level[2][1]);
-        EEPROM_READ_VAR(i,bed_level[2][2]);
-        
+
+#ifdef ACCURATE_BED_LEVELING 
+  for (int x = 0; x < ACCURATE_BED_LEVELING_POINTS; x++) {
+    for (int y = 0; y < ACCURATE_BED_LEVELING_POINTS; y++) {
+        EEPROM_READ_VAR(i,bed_level[x][y]);
+    }
+  }
+#endif        
         #ifdef ENABLE_Z_OFFSET
         EEPROM_READ_VAR(i,levelOffset);
         #endif

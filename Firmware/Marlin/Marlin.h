@@ -85,7 +85,7 @@ const char echomagic[] PROGMEM ="echo:";
 void serial_echopair_P(const char *s_P, float v);
 void serial_echopair_P(const char *s_P, double v);
 void serial_echopair_P(const char *s_P, unsigned long v);
-
+void serial_echopair_P(const char *s_P, int v);
 
 //things to write to serial from Programmemory. saves 400 to 2k of RAM.
 FORCE_INLINE void serialprintPGM(const char *str)
@@ -250,6 +250,5 @@ extern void digipot_i2c_init();
 #ifdef NONLINEAR_BED_LEVELING
 extern float bed_level[ACCURATE_BED_LEVELING_POINTS][ACCURATE_BED_LEVELING_POINTS];
 #endif
-
 
 #endif

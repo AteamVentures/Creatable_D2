@@ -792,50 +792,44 @@ Button commonly used for reset or general input. Spark Fun Electronics SKU : COM
 &lt;/ul&gt;
 &lt;author&gt;Created by librarian@cadsoft.de&lt;/author&gt;</description>
 <packages>
-<package name="KSS1201">
-<description>&lt;b&gt;SPEAKER&lt;/b&gt;</description>
-<wire x1="2.794" y1="2.54" x2="3.81" y2="2.54" width="0.1524" layer="21"/>
-<wire x1="3.302" y1="3.048" x2="3.302" y2="2.032" width="0.1524" layer="21"/>
-<circle x="0" y="0" radius="1.27" width="0.1524" layer="21"/>
+<package name="F/TMB">
+<description>&lt;b&gt;BUZZER&lt;/b&gt;</description>
+<wire x1="3.429" y1="2.54" x2="4.191" y2="2.54" width="0.1524" layer="21"/>
+<wire x1="3.81" y1="2.159" x2="3.81" y2="2.921" width="0.1524" layer="21"/>
 <circle x="0" y="0" radius="6.096" width="0.1524" layer="21"/>
-<circle x="3.302" y="2.54" radius="0.762" width="0.1524" layer="21"/>
-<pad name="+" x="3.2512" y="0" drill="0.9144" diameter="2.159" shape="octagon"/>
-<pad name="-" x="-3.2512" y="0" drill="0.9144" diameter="2.159" shape="octagon"/>
-<text x="3.937" y="5.08" size="1.27" layer="25" ratio="10">&gt;NAME</text>
-<text x="-3.556" y="-3.81" size="1.27" layer="27" ratio="10">&gt;VALUE</text>
+<circle x="0" y="0" radius="1.27" width="0.1524" layer="21"/>
+<circle x="3.81" y="2.54" radius="0.762" width="0.1524" layer="21"/>
+<pad name="-" x="-3.81" y="0" drill="1.016" diameter="2.159" shape="octagon"/>
+<pad name="+" x="3.81" y="0" drill="1.016" diameter="2.159" shape="octagon"/>
+<text x="-3.81" y="-3.81" size="1.27" layer="27" ratio="10">&gt;VALUE</text>
+<text x="3.302" y="5.715" size="1.27" layer="25" ratio="10">&gt;NAME</text>
 </package>
 </packages>
 <symbols>
-<symbol name="SP">
-<wire x1="-1.905" y1="-0.635" x2="1.905" y2="-0.635" width="0.254" layer="94"/>
-<wire x1="1.905" y1="-0.635" x2="1.905" y2="0" width="0.254" layer="94"/>
-<wire x1="1.905" y1="2.54" x2="-1.905" y2="2.54" width="0.254" layer="94"/>
-<wire x1="-1.905" y1="-0.635" x2="-1.905" y2="0" width="0.254" layer="94"/>
-<wire x1="1.905" y1="2.54" x2="5.08" y2="5.08" width="0.254" layer="94"/>
-<wire x1="5.08" y1="5.08" x2="-5.08" y2="5.08" width="0.254" layer="94"/>
-<wire x1="-1.905" y1="2.54" x2="-5.08" y2="5.08" width="0.254" layer="94"/>
-<wire x1="2.54" y1="0" x2="1.905" y2="0" width="0.1524" layer="94"/>
-<wire x1="1.905" y1="0" x2="1.905" y2="2.54" width="0.254" layer="94"/>
-<wire x1="-2.54" y1="0" x2="-1.905" y2="0" width="0.1524" layer="94"/>
-<wire x1="-1.905" y1="0" x2="-1.905" y2="2.54" width="0.254" layer="94"/>
-<text x="-3.81" y="6.35" size="1.778" layer="95">&gt;NAME</text>
-<text x="-3.81" y="-3.175" size="1.778" layer="96">&gt;VALUE</text>
-<pin name="2" x="5.08" y="0" visible="pad" length="short" direction="pas" rot="R180"/>
-<pin name="1" x="-5.08" y="0" visible="pad" length="short" direction="pas"/>
+<symbol name="B">
+<wire x1="-2.54" y1="5.08" x2="5.08" y2="5.08" width="0.254" layer="94" curve="180"/>
+<wire x1="-2.54" y1="5.08" x2="1.27" y2="5.08" width="0.254" layer="94"/>
+<wire x1="1.27" y1="1.27" x2="1.27" y2="5.08" width="0.1524" layer="94"/>
+<wire x1="1.27" y1="5.08" x2="5.08" y2="5.08" width="0.254" layer="94"/>
+<wire x1="2.54" y1="-2.54" x2="2.54" y2="1.397" width="0.1524" layer="94"/>
+<wire x1="0" y1="-2.54" x2="0" y2="1.397" width="0.1524" layer="94"/>
+<text x="-2.54" y="6.35" size="1.778" layer="95">&gt;NAME</text>
+<text x="5.08" y="0" size="1.778" layer="96">&gt;VALUE</text>
+<pin name="-" x="5.08" y="-2.54" visible="pad" length="short" direction="pas" rot="R180"/>
+<pin name="+" x="-2.54" y="-2.54" visible="pad" length="short" direction="pas"/>
 </symbol>
 </symbols>
 <devicesets>
-<deviceset name="KSS1201" prefix="SP">
-<description>&lt;b&gt;SPEAKER&lt;/b&gt;&lt;p&gt;
-Source: Schukat</description>
+<deviceset name="F/TMB" prefix="SG">
+<description>&lt;b&gt;BUZZER&lt;/b&gt;&lt;p&gt; Source: Buerklin</description>
 <gates>
-<gate name="1" symbol="SP" x="0" y="0"/>
+<gate name="1" symbol="B" x="0" y="0"/>
 </gates>
 <devices>
-<device name="" package="KSS1201">
+<device name="" package="F/TMB">
 <connects>
-<connect gate="1" pin="1" pad="+"/>
-<connect gate="1" pin="2" pad="-"/>
+<connect gate="1" pin="+" pad="+"/>
+<connect gate="1" pin="-" pad="-"/>
 </connects>
 <technologies>
 <technology name="">
@@ -7031,7 +7025,6 @@ DIN A4, landscape with location and doc. field</description>
 </class>
 </classes>
 <parts>
-<part name="SP1" library="buzzer" deviceset="KSS1201" device=""/>
 <part name="SW1" library="switch-alps" deviceset="EC12E_SW" device=""/>
 <part name="SUPPLY1" library="supply2" deviceset="GND" device=""/>
 <part name="P+1" library="supply1" deviceset="VCC" device=""/>
@@ -7065,13 +7058,14 @@ DIN A4, landscape with location and doc. field</description>
 <part name="JP2" library="pinhead" deviceset="PINHD-2X2" device=""/>
 <part name="JP1" library="pinhead" deviceset="PINHD-2X2" device=""/>
 <part name="J2" library="con-molex-spox" deviceset="5267-4" device=""/>
+<part name="SUPPLY2" library="supply2" deviceset="GND" device=""/>
+<part name="SG1" library="buzzer" deviceset="F/TMB" device="" value="GEC-13C"/>
 </parts>
 <sheets>
 <sheet>
 <plain>
 </plain>
 <instances>
-<instance part="SP1" gate="1" x="137.16" y="149.86"/>
 <instance part="SW1" gate="G$1" x="50.8" y="134.62"/>
 <instance part="SW1" gate="G$2" x="66.04" y="134.62" rot="R90"/>
 <instance part="SUPPLY1" gate="GND" x="73.66" y="78.74"/>
@@ -7115,6 +7109,11 @@ DIN A4, landscape with location and doc. field</description>
 <instance part="JP2" gate="A" x="218.44" y="114.3"/>
 <instance part="JP1" gate="A" x="218.44" y="78.74"/>
 <instance part="J2" gate="G$1" x="162.56" y="114.3"/>
+<instance part="SUPPLY2" gate="GND" x="58.42" y="78.74"/>
+<instance part="SG1" gate="1" x="134.62" y="152.4" smashed="yes">
+<attribute name="NAME" x="132.08" y="158.75" size="1.778" layer="95"/>
+<attribute name="VALUE" x="139.7" y="152.4" size="1.778" layer="96"/>
+</instance>
 </instances>
 <busses>
 </busses>
@@ -7148,8 +7147,8 @@ DIN A4, landscape with location and doc. field</description>
 <segment>
 <pinref part="SUPPLY6" gate="GND" pin="GND"/>
 <wire x1="144.78" y1="144.78" x2="144.78" y2="149.86" width="0.1524" layer="91"/>
-<pinref part="SP1" gate="1" pin="2"/>
-<wire x1="144.78" y1="149.86" x2="142.24" y2="149.86" width="0.1524" layer="91"/>
+<pinref part="SG1" gate="1" pin="-"/>
+<wire x1="139.7" y1="149.86" x2="144.78" y2="149.86" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="Q1" gate="T" pin="S"/>
@@ -7194,6 +7193,24 @@ DIN A4, landscape with location and doc. field</description>
 <pinref part="SUPPLY4" gate="GND" pin="GND"/>
 <wire x1="233.68" y1="78.74" x2="233.68" y2="73.66" width="0.1524" layer="91"/>
 <pinref part="JP1" gate="A" pin="4"/>
+</segment>
+<segment>
+<pinref part="SUPPLY2" gate="GND" pin="GND"/>
+<pinref part="U$1" gate="G$1" pin="DB3"/>
+<wire x1="58.42" y1="81.28" x2="58.42" y2="83.82" width="0.1524" layer="91"/>
+<pinref part="U$1" gate="G$1" pin="DB2"/>
+<wire x1="58.42" y1="83.82" x2="58.42" y2="86.36" width="0.1524" layer="91"/>
+<wire x1="55.88" y1="86.36" x2="55.88" y2="83.82" width="0.1524" layer="91"/>
+<wire x1="55.88" y1="83.82" x2="58.42" y2="83.82" width="0.1524" layer="91"/>
+<wire x1="55.88" y1="83.82" x2="53.34" y2="83.82" width="0.1524" layer="91"/>
+<wire x1="53.34" y1="83.82" x2="50.8" y2="83.82" width="0.1524" layer="91"/>
+<pinref part="U$1" gate="G$1" pin="DB1"/>
+<wire x1="53.34" y1="86.36" x2="53.34" y2="83.82" width="0.1524" layer="91"/>
+<junction x="53.34" y="83.82"/>
+<junction x="55.88" y="83.82"/>
+<junction x="58.42" y="83.82"/>
+<pinref part="U$1" gate="G$1" pin="DB0"/>
+<wire x1="50.8" y1="83.82" x2="50.8" y2="86.36" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="VCC" class="0">
@@ -7347,7 +7364,7 @@ DIN A4, landscape with location and doc. field</description>
 <segment>
 <wire x1="132.08" y1="149.86" x2="111.76" y2="149.86" width="0.1524" layer="91"/>
 <label x="116.84" y="149.86" size="1.778" layer="95"/>
-<pinref part="SP1" gate="1" pin="1"/>
+<pinref part="SG1" gate="1" pin="+"/>
 </segment>
 <segment>
 <wire x1="20.32" y1="35.56" x2="35.56" y2="35.56" width="0.1524" layer="91"/>

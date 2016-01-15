@@ -1,0 +1,116 @@
+
+INPUT-UNITS     INCHES
+
+WHEEL     1
+
+CIRCLE       23.6181            D10
+CIRCLE       27.5591            D11
+CIRCLE            28            D12
+CIRCLE       35.4291            D13
+CIRCLE       39.3701            D14
+RECTANGLE    70.8661   70.8661   0.00000  D15
+CIRCLE       70.8661            D16
+RECTANGLE    39.3701   10.6299   0.00000  D17
+RECTANGLE    10.6299   39.3701   0.00000  D18
+RECTANGLE   118.1102  118.1102   0.00000  D19
+RECTANGLE   110.2402   55.1181   0.00000  D20
+SQUARE       70.8661   0.00000            D21
+RECTANGLE   212.5984  118.1102   0.00000  D22
+RECTANGLE   118.1102  212.5984   0.00000  D23
+CIRCLE      216.5354            D24
+RECTANGLE         71        67   0.00000  D25
+RECTANGLE         76        72   0.00000  D26
+RECTANGLE         67        71   0.00000  D27
+RECTANGLE         72        76   0.00000  D28
+SQUARE       78.7402   0.00000            D29
+CIRCLE       78.7402            D30
+CIRCLE       62.9882            D31
+SQUARE       62.9882   0.00000            D32
+CIRCLE           100            D33
+RECTANGLE    39.3701  188.9803   0.00000  D34
+CIRCLE      118.1102            D35
+CIRCLE       66.9291            D36
+RECTANGLE    39.3701   90.5512   0.00000  D37
+RECTANGLE   413.3858  334.6457   0.00000  D38
+RECTANGLE    27.5591   59.0591   0.00000  D39
+RECTANGLE       31.5   62.9882   0.00000  D40
+RECTANGLE     19.689   59.0591   0.00000  D41
+RECTANGLE    23.6181   62.9882   0.00000  D42
+LINE              12            D43
+OBLONG            12        79   0.00000  D44
+RECTANGLE         79        12   0.00000  D45
+RECTANGLE         81        14   0.00000  D46
+RECTANGLE         12        79   0.00000  D47
+RECTANGLE         14        81   0.00000  D48
+SQUARE       59.0551   0.00000            D49
+CIRCLE       59.0551            D50
+CIRCLE       59.0591            D51
+RECTANGLE    78.7402   70.8701   0.00000  D52
+RECTANGLE    47.2441   27.5591   0.00000  D53
+RECTANGLE   173.2283  196.8504   0.00000  D54
+RECTANGLE    35.4291      31.5   0.00000  D55
+RECTANGLE       31.5   35.4291   0.00000  D56
+RECTANGLE    39.3701      31.5   0.00000  D57
+RECTANGLE     43.311   35.4291   0.00000  D58
+RECTANGLE    62.9882  137.7992   0.00000  D59
+RECTANGLE   137.7992   62.9882   0.00000  D60
+CIRCLE           130            D61
+CIRCLE           135            D62
+RECTANGLE    82.6811   74.7992   0.00000  D63
+RECTANGLE    70.8701   78.7402   0.00000  D64
+RECTANGLE    74.7992   82.6811   0.00000  D65
+RECTANGLE     11.811   47.2441   0.00000  D66
+RECTANGLE    47.2441    11.811   0.00000  D67
+CIRCLE      169.2913            D68
+OBLONG            79        12   0.00000  D69
+RECTANGLE   334.6457  413.3858   0.00000  D70
+RECTANGLE    90.5512   39.3701   0.00000  D71
+RECTANGLE   196.8504  173.2283   0.00000  D72
+RECTANGLE    27.5591   47.2441   0.00000  D73
+RECTANGLE    51.1811   55.1181   0.00000  D74
+RECTANGLE    55.1181   51.1811   0.00000  D75
+RECTANGLE   188.9803   39.3701   0.00000  D76
+RECTANGLE    55.1181  110.2402   0.00000  D77
+RECTANGLE    39.3701   70.8701   0.00000  D78
+RECTANGLE    70.8701   39.3701   0.00000  D79
+RECTANGLE    59.0591    19.689   0.00000  D80
+RECTANGLE    62.9882   23.6181   0.00000  D81
+RECTANGLE    59.0591   27.5591   0.00000  D82
+RECTANGLE    62.9882      31.5   0.00000  D83
+RECTANGLE       31.5   39.3701   0.00000  D84
+RECTANGLE    35.4291    43.311   0.00000  D85
+LINE          3.1496            D86
+LINE           3.937            D87
+LINE          5.9055            D88
+LINE               3            D89
+LINE               5            D90
+LINE          4.0197            D91
+LINE               4            D92
+LINE          7.8701            D93
+LINE          5.9094            D94
+LINE          3.9409            D95
+LINE          11.811            D96
+LINE          4.0157            D97
+LINE               6            D98
+LINE               8            D99
+LINE              10            D100
+LINE              25            D101
+LINE          9.8425            D102
+LINE           7.874            D103
+LINE         59.0551            D104
+LINE         11.0236            D105
+LINE         31.4961            D106
+LINE          0.3937            D107
+LINE         39.3701            D108
+LINE          0.9843            D109
+LINE              36            D110
+LINE               2            D111
+LINE          7.0906            D112
+LINE          23.622            D113
+LINE              50            D114
+LINE          19.685            D115
+LINE         78.7402            D116
+LINE          0.0787            D117
+LINE          1.9685            D118
+LINE        118.1102            D119
+

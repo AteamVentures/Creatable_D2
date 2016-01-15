@@ -26,6 +26,7 @@ int absPreheatHotendTemp;
 int absPreheatHPBTemp;
 int absPreheatFanSpeed;
 
+int filament_load_temp;
 
 #ifdef ULTIPANEL
 static float manual_feedrate[] = MANUAL_FEEDRATE;
@@ -534,7 +535,7 @@ static void lcd_tune_menu()
     MENU_ITEM_EDIT(int3, MSG_BED, &target_temperature_bed, 0, BED_MAXTEMP - 15);
 #endif
 //    MENU_ITEM_EDIT(int3, MSG_FAN_SPEED, &fanSpeed, 0, 255);
-    MENU_ITEM_EDIT(int3, MSG_FLOW, &extrudemultiply, 10, 999);
+    MENU_ITEM_EDIT(int3, MSG_FLOW, &extrudemultiply, 100, 999);
 
 #ifdef BABYSTEPPING
     #ifdef BABYSTEP_XY
@@ -549,21 +550,25 @@ static void lcd_tune_menu()
     END_MENU();
 }
 
+
 static void filament_extrude()
 {
     float move_menu_scale=0.1;
     char buffer[20];
 
-    setTargetHotend(FILAMENT_LOAD_TEMP + 20, active_extruder); // +20 degree
+    setTargetHotend(filament_load_temp + 15, active_extruder); // +15 degree
     prevent_lcd_update = true;
 
     // if (degHotend(active_extruder) < FILAMENT_LOAD_TEMP) lcd_implementation_draw_string(0, "Wait for heating up");
     // else lcd_implementation_draw_string(0, "Ready to extrude    ");
 
-     if (degHotend(active_extruder) < FILAMENT_LOAD_TEMP) {
-         sprintf(buffer,"Nozzle temp:%d/%d", (int)degHotend(active_extruder), FILAMENT_LOAD_TEMP);
+     if (degHotend(active_extruder) < filament_load_temp) {
+         sprintf(buffer,"Nozzle temp:%d/%d", (int)degHotend(active_extruder), filament_load_temp);
          lcd_implementation_draw_string(0, buffer);
          lcd_implementation_draw_string(1, "Wait for heating up ");
+
+         encoderPosition = 0;
+
      }else { 
         lcd_implementation_draw_string(0, "  Ready to extrude  ");
         lcd_implementation_draw_string(1, "                    ");
@@ -571,7 +576,7 @@ static void filament_extrude()
 
      // if (degHotend(active_extruder) >= FILAMENT_LOAD_TEMP) lcd_implementation_draw_string(1, "Wait for heating up");
 
-    if ((encoderPosition != 0) && (degHotend(active_extruder) >= FILAMENT_LOAD_TEMP))
+    if ((encoderPosition != 0) && (degHotend(active_extruder) >= filament_load_temp))
     {
         if (!blocks_queued()) {    
             refresh_cmd_timeout();
@@ -590,7 +595,7 @@ static void filament_extrude()
         }
     }
 
-    if (degHotend(active_extruder) >= FILAMENT_LOAD_TEMP) {
+    if (degHotend(active_extruder) >= filament_load_temp) {
         lcd_implementation_draw_string(2, "Rotate left: Extrude");
         lcd_implementation_draw_string(3, "    Click to exit   ");
     }
@@ -620,6 +625,39 @@ static void filament_extrude()
         setTargetHotend0(0);
     }
 }
+
+static void select_pla_temp()
+{
+    enquecommand_P(PSTR("G28"));
+
+    filament_load_temp = PLA_PREHEAT_HOTEND_TEMP;
+    currentMenu = filament_extrude;
+
+}
+
+static void select_abs_temp()
+{
+    enquecommand_P(PSTR("G28"));
+
+    filament_load_temp = ABS_PREHEAT_HOTEND_TEMP;
+    currentMenu = filament_extrude;
+}
+
+
+static void filament_select()
+{
+    
+    lcd_implementation_draw_string(0, " Select the filament");
+    lcd_implementation_draw_string(1, "     to extrude     ");
+
+    START_MENU();
+
+    MENU_ITEM_CUSTOM(function, "PLA", 2, select_pla_temp);
+    MENU_ITEM_CUSTOM(function, "ABS", 3, select_abs_temp);
+
+    END_MENU();
+}
+
 
 #if 0
 // Filament handling function
@@ -1097,7 +1135,8 @@ static void print_bed_level() {
 
 static void lcd_move_z()
 {
-    float move_menu_scale=0.1;
+    // float move_menu_scale =0.1;
+    float move_menu_scale =0.01;
 
     if (encoderPosition != 0)
     {
@@ -1131,7 +1170,7 @@ static void lcd_move_z()
     }
     if (lcdDrawUpdate)
     {
-        lcd_implementation_drawedit_custom(3,PSTR("Z"), ftostr31(current_position[Z_AXIS]));
+        lcd_implementation_drawedit_custom(3,PSTR("Z"), ftostr32(current_position[Z_AXIS]));
     }
     lcd_implementation_draw_string(0, "Rotate the button.  ");
     lcd_implementation_draw_string(1, "And push it         ");
@@ -1141,9 +1180,9 @@ static void lcd_move_z()
         lcd_quick_feedback();
         
         set_level_offset(current_position[Z_AXIS]);
-        for(int i = 0 ; i < 3 ; i++){
-            for(int j = 0 ; j < 3 ; j++){
-                bed_level[i][j]+=get_level_offset();
+        for(int x = 0 ; x < ACCURATE_BED_LEVELING_POINTS ; x++){
+            for(int y = 0 ; y < ACCURATE_BED_LEVELING_POINTS ; y++){
+                bed_level[x][y]+=get_level_offset();
             }
         }
         Config_StoreSettings();
@@ -1158,9 +1197,9 @@ static void lcd_move_z()
 }
 
 static void edit_level_offset(){
-    for(int i = 0 ; i < 3 ; i++){
-        for(int j = 0 ; j < 3 ; j++){
-            bed_level[i][j]-=get_level_offset();
+    for(int x = 0 ; x < ACCURATE_BED_LEVELING_POINTS ; x++){
+        for(int y = 0 ; y < ACCURATE_BED_LEVELING_POINTS ; y++){
+            bed_level[x][y]-=get_level_offset();
         }
     }
     
@@ -1173,9 +1212,7 @@ static void edit_level_offset(){
 
     enquecommand_P(PSTR("M400"));           // wait for finishing movement to go to z
     
-    
     currentMenu = wait_offset;
-    
 }
 
 static void wait_offset(){
@@ -1338,7 +1375,8 @@ static void lcd_filament_menu()
 
     MENU_ITEM(submenu, "Unload filament", filament_unload);
     MENU_ITEM(submenu, "Load filament", filament_load);
-    MENU_ITEM(submenu, "Extrude filament", filament_extrude);
+    // MENU_ITEM(submenu, "Extrude filament", filament_extrude);
+    MENU_ITEM(submenu, "Extrude filament", filament_select);
 
     MENU_ITEM(submenu, MSG_PREHEAT_PLA_SETTINGS, lcd_control_temperature_preheat_pla_settings_menu);
     MENU_ITEM(submenu, MSG_PREHEAT_ABS_SETTINGS, lcd_control_temperature_preheat_abs_settings_menu);
@@ -2036,7 +2074,8 @@ char *ftostr32(const float &x)
 {
   long xx=x*100;
   if (xx >= 0)
-    conv[0]=(xx/10000)%10+'0';
+    // conv[0]=(xx/10000)%10+'0';
+    conv[0]=(xx/10000)%10+'+';
   else
     conv[0]='-';
   xx=abs(xx);
@@ -2048,6 +2087,7 @@ char *ftostr32(const float &x)
   conv[6]=0;
   return conv;
 }
+
 
 char *itostr31(const int &x)
 {

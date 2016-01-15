@@ -16,7 +16,7 @@
 // startup. Implementation of an idea by Prof Braino to inform user that any changes made to this
 // build by the user have been successfully uploaded into firmware.
 #define STRING_VERSION_CONFIG_H __DATE__ " " __TIME__ // build date and time
-#define STRING_CONFIG_H_AUTHOR "Version 1.0.4" // Who made the changes.
+#define STRING_CONFIG_H_AUTHOR "Version 1.0.5" // Who made the changes.
 
 // SERIAL_PORT selects which serial port should be used for communication with the host.
 // This allows the connection of wireless adapters (for instance) to non-default port pins.
@@ -38,10 +38,12 @@
 #define FILAMENT_LOAD_SPEED         200
 #define FILAMENT_MOVE_ACCELERATION   30
 
-#ifdef TEST
+#ifdef TEST     // Not used
 #define LEVELING_TEMP 200
 #endif
 
+// Probing the all position whitout skipping
+// #define LEVELING_ALL_PROBE
 
 //// The following define selects which electronics board you have. Please choose the one that matches your setup
 // 10 = Gen7 custom (Alfons3 Version) "https://github.com/Alfons3/Generation_7_Electronics"
@@ -430,7 +432,11 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
   // these are the offsets to the probe relative to the extruder tip (Hotend - Probe)
   #define X_PROBE_OFFSET_FROM_EXTRUDER 0.0
   #define Y_PROBE_OFFSET_FROM_EXTRUDER 0.0
+#ifdef LEVELING_ALL_PROBE
   #define Z_PROBE_OFFSET_FROM_EXTRUDER 0.35// Increase this if the first layer is too thin. This decreases gap about film thickness
+#else
+  #define Z_PROBE_OFFSET_FROM_EXTRUDER 0.35// Increase this if the first layer is too thin. This decreases gap about film thickness
+#endif
 
   #define Z_RAISE_BEFORE_HOMING 4       // (in mm) Raise Z before homing (G28) for Probe Clearance.
                                         // Be sure you have this distance over your Z_MAX_POS in case
@@ -467,10 +473,17 @@ const bool Z_MAX_ENDSTOP_INVERTING = false; // set to true to invert the logic o
   // with accurate bed leveling, the bed is sampled in a ACCURATE_BED_LEVELING_POINTS x ACCURATE_BED_LEVELING_POINTS grid and least squares solution is calculated
   // Note: this feature occupies 10'206 byte
 
- #define ACCURATE_BED_LEVELING
+
+  #define ACCURATE_BED_LEVELING
 
   #ifdef ACCURATE_BED_LEVELING
+
+#ifdef LEVELING_ALL_PROBE
+    #define ACCURATE_BED_LEVELING_POINTS 5
+#else
     #define ACCURATE_BED_LEVELING_POINTS 3
+#endif
+
     #define ACCURATE_BED_LEVELING_GRID_X ((RIGHT_PROBE_BED_POSITION - LEFT_PROBE_BED_POSITION) / (ACCURATE_BED_LEVELING_POINTS - 1))
     #define ACCURATE_BED_LEVELING_GRID_Y ((BACK_PROBE_BED_POSITION - FRONT_PROBE_BED_POSITION) / (ACCURATE_BED_LEVELING_POINTS - 1))
 

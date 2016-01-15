@@ -1,10 +1,18 @@
-Firmware Change History.
+Firmware Change History
+
+Ver. 1.0.5
+-. Add filament selecting option in Extrude filament menu
+-. Increase the Z resolution value when setting the Z-offset
+-. Reduce the BLOCK_BUFFER_SIZE size from 16 to 4 : minimizing lack when operate the LCD panel
+-. Debug: bed_level variale when the index is bigger than 3
+-. Add 5x5 probing code (Not deploy in 1.0.5) - uncomment LEVELING_ALL_PROBE in Configuration.h
+
 
 Ver. 1.0.4
--. Reset to default - Reset Z offset vlaue
+-. Reset to default - Reset Z offset value
 -. Change DEFAULT_EJERK, DEFAULT_MAX_ACCELERATION, DEFAULT_ACCELERATION
--. Extrude filamnet - Fan on 
+-. Extrude filament - Fan on 
 -. Z Raise +10
--. Automaticcaly Fan control according to the temp
+-. Automatically Fan control according to the temp
 -. Set Z offset limit
 -. Apply 4 point autoleveling

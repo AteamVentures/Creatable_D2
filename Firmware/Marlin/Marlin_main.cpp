@@ -321,6 +321,8 @@ void serial_echopair_P(const char *s_P, double v)
     { serialprintPGM(s_P); SERIAL_ECHO(v); }
 void serial_echopair_P(const char *s_P, unsigned long v)
     { serialprintPGM(s_P); SERIAL_ECHO(v); }
+void serial_echopair_P(const char *s_P, int v)
+    { serialprintPGM(s_P); SERIAL_ECHO(v); }
 
 extern "C"{
   extern unsigned int __bss_end;
@@ -967,7 +969,7 @@ static void run_z_probe() {
       long start_steps = st_get_position(Z_AXIS);
 
       feedrate = homing_feedrate[Z_AXIS]/10;
-      destination[Z_AXIS] = -10;
+      destination[Z_AXIS] = -15;
       prepare_move_raw();
       st_synchronize();
       endstops_hit_on_purpose();
@@ -1379,12 +1381,14 @@ void process_commands()
       #endif //FWRETRACT
     case 28: //G28 Home all Axis one at a time
 #ifdef ENABLE_AUTO_BED_LEVELING
-        float tempBedLevel[3][3];
-        for(int i = 0 ; i < 3; i++){
-            for(int j = 0 ; j < 3 ; j++){
+#ifdef ACCURATE_BED_LEVELING
+        float tempBedLevel[ACCURATE_BED_LEVELING_POINTS][ACCURATE_BED_LEVELING_POINTS];
+        for(int i = 0 ; i < ACCURATE_BED_LEVELING_POINTS; i++){
+            for(int j = 0 ; j < ACCURATE_BED_LEVELING_POINTS ; j++){
                 tempBedLevel[i][j] = bed_level[i][j];
             }
         }
+#endif        
       plan_bed_level_matrix.set_to_identity();  //Reset the plane ("erase" all leveling data)
 #endif //ENABLE_AUTO_BED_LEVELING
 
@@ -1433,11 +1437,14 @@ void process_commands()
 
           calculate_delta(current_position);
           plan_set_position(delta[X_AXIS], delta[Y_AXIS], delta[Z_AXIS], current_position[E_AXIS]);
-          for(int i = 0 ; i < 3; i++){
-            for(int j = 0 ; j < 3 ; j++){
+#ifdef ACCURATE_BED_LEVELING
+          for(int i = 0 ; i < ACCURATE_BED_LEVELING_POINTS; i++){
+            for(int j = 0 ; j < ACCURATE_BED_LEVELING_POINTS ; j++){
                 bed_level[i][j] = tempBedLevel[i][j];
             }
           }   
+#endif
+
 #else // NOT DELTA
 
       home_all_axis = !((code_seen(axis_codes[0])) || (code_seen(axis_codes[1])) || (code_seen(axis_codes[2])));
@@ -1679,13 +1686,19 @@ void process_commands()
                 //Change for pic 3 points
                 // if (distance_from_center > DELTA_PRINTABLE_RADIUS) continue;
                 // if (distance_from_center > DELTA_PRINTABLE_RADIUS+10) continue;
+
+                #ifndef LEVELING_ALL_PROBE 
                 if (distance_from_center < DELTA_PRINTABLE_RADIUS-10) continue;
+                #endif
+
                 // Avoid One more point
                 // if ((yProbe > 90)) continue;
                 #endif //DELTA
 
+                #ifndef LEVELING_ALL_PROBE 
                 // Skip the (0,0)
                 if ((xProbe == 0) && (yProbe == 0)) continue;
+                #endif
 
                 float z_before = probePointCounter == 0 ? Z_RAISE_BEFORE_PROBING :
                   current_position[Z_AXIS] + Z_RAISE_BETWEEN_PROBINGS;
@@ -1713,12 +1726,16 @@ void process_commands()
 
           #ifdef NONLINEAR_BED_LEVELING
 
+            #ifndef LEVELING_ALL_PROBE 
+
             // float xGap,yGap;
             bed_level[1][0] =  (bed_level[0][0]+bed_level[2][0])/2;
             bed_level[1][2] =  (bed_level[0][2]+bed_level[2][2])/2;
             bed_level[0][1] =  (bed_level[0][0]+bed_level[0][2])/2;
             bed_level[1][1] =  (bed_level[1][0]+bed_level[1][2])/2;
             bed_level[2][1] =  (bed_level[2][0]+bed_level[2][2])/2;
+
+            #endif
 
             // xGap = (bed_level[2][1] - bed_level[0][1])/2;
             // bed_level[1][1] = bed_level[0][1] + xGap;
@@ -1769,7 +1786,6 @@ void process_commands()
           #endif //SERVO_ENDSTOPS
 
           #ifdef NONLINEAR_BED_LEVELING
-            
             Config_StoreSettings();
           #else
             // The following code correct the Z height difference from z-probe position and hotend tip position.
@@ -1784,6 +1800,7 @@ void process_commands()
             current_position[Z_AXIS] = z_tmp - real_z + current_position[Z_AXIS];   //The difference is added to current position and sent to planner.
 
             plan_set_position(current_position[X_AXIS], current_position[Y_AXIS], current_position[Z_AXIS], current_position[E_AXIS]);
+
           #endif //NONLINEAR_BED_LEVELING
             set_level_offset(0);
         }
