@@ -1,0 +1,871 @@
+   1               		.file	"Arduino-usbserial.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.global __do_copy_data
+   9               		.global __do_clear_bss
+  17               	.Ltext0:
+  18               		.section	.text.EVENT_CDC_Device_LineEncodingChanged,"ax",@progbits
+  19               	.global	EVENT_CDC_Device_LineEncodingChanged
+  21               	EVENT_CDC_Device_LineEncodingChanged:
+  22               	.LFB97:
+  23               	.LSM0:
+  24               	.LVL0:
+  25 0000 DF92      		push r13
+  26 0002 EF92      		push r14
+  27 0004 FF92      		push r15
+  28 0006 0F93      		push r16
+  29 0008 1F93      		push r17
+  30               	/* prologue: function */
+  31               	/* frame size = 0 */
+  32 000a FC01      		movw r30,r24
+  33               	.LSM1:
+  34 000c 8489      		ldd r24,Z+20
+  35               	.LVL1:
+  36 000e 8130      		cpi r24,lo8(1)
+  37 0010 01F0      		breq .L3
+  38 0012 8230      		cpi r24,lo8(2)
+  39 0014 01F4      		brne .L16
+  40 0016 00C0      		rjmp .L18
+  41               	.L3:
+  42 0018 40E3      		ldi r20,lo8(48)
+  43 001a D42E      		mov r13,r20
+  44               	.LVL2:
+  45 001c 00C0      		rjmp .L5
+  46               	.LVL3:
+  47               	.L16:
+  48 001e DD24      		clr r13
+  49               	.LVL4:
+  50 0020 00C0      		rjmp .L5
+  51               	.LVL5:
+  52               	.L18:
+  53 0022 30E2      		ldi r19,lo8(32)
+  54 0024 D32E      		mov r13,r19
+  55               	.LVL6:
+  56               	.L5:
+  57               	.LSM2:
+  58 0026 8389      		ldd r24,Z+19
+  59 0028 8230      		cpi r24,lo8(2)
+  60 002a 01F4      		brne .L6
+  61               	.LSM3:
+  62 002c 88E0      		ldi r24,lo8(8)
+  63 002e D82A      		or r13,r24
+  64               	.L6:
+  65               	.LSM4:
+  66 0030 8589      		ldd r24,Z+21
+  67 0032 8730      		cpi r24,lo8(7)
+  68 0034 01F0      		breq .L9
+  69 0036 8830      		cpi r24,lo8(8)
+  70 0038 01F0      		breq .L10
+  71 003a 8630      		cpi r24,lo8(6)
+  72 003c 01F4      		brne .L7
+  73               	.LSM5:
+  74 003e 82E0      		ldi r24,lo8(2)
+  75 0040 00C0      		rjmp .L17
+  76               	.L9:
+  77               	.LSM6:
+  78 0042 84E0      		ldi r24,lo8(4)
+  79 0044 00C0      		rjmp .L17
+  80               	.L10:
+  81               	.LSM7:
+  82 0046 86E0      		ldi r24,lo8(6)
+  83               	.L17:
+  84 0048 D82A      		or r13,r24
+  85               	.L7:
+  86               	.LSM8:
+  87 004a 1092 C900 		sts 201,__zero_reg__
+  88               	.LSM9:
+  89 004e 1092 C800 		sts 200,__zero_reg__
+  90               	.LSM10:
+  91 0052 1092 CA00 		sts 202,__zero_reg__
+  92               	.LSM11:
+  93 0056 E784      		ldd r14,Z+15
+  94 0058 F088      		ldd r15,Z+16
+  95 005a 0189      		ldd r16,Z+17
+  96 005c 1289      		ldd r17,Z+18
+  97 005e 80E0      		ldi r24,lo8(57600)
+  98 0060 E816      		cp r14,r24
+  99 0062 81EE      		ldi r24,hi8(57600)
+ 100 0064 F806      		cpc r15,r24
+ 101 0066 80E0      		ldi r24,hlo8(57600)
+ 102 0068 0807      		cpc r16,r24
+ 103 006a 80E0      		ldi r24,hhi8(57600)
+ 104 006c 1807      		cpc r17,r24
+ 105 006e 01F4      		brne .L11
+ 106 0070 20E1      		ldi r18,lo8(16)
+ 107 0072 30E0      		ldi r19,hi8(16)
+ 108 0074 00C0      		rjmp .L12
+ 109               	.L11:
+ 110 0076 C801      		movw r24,r16
+ 111 0078 B701      		movw r22,r14
+ 112 007a 9695      		lsr r25
+ 113 007c 8795      		ror r24
+ 114 007e 7795      		ror r23
+ 115 0080 6795      		ror r22
+ 116 0082 6058      		subi r22,lo8(-(2000000))
+ 117 0084 7B47      		sbci r23,hi8(-(2000000))
+ 118 0086 814E      		sbci r24,hlo8(-(2000000))
+ 119 0088 9F4F      		sbci r25,hhi8(-(2000000))
+ 120 008a A801      		movw r20,r16
+ 121 008c 9701      		movw r18,r14
+ 122 008e 0E94 0000 		call __udivmodsi4
+ 123               	.LVL7:
+ 124 0092 2150      		subi r18,lo8(-(-1))
+ 125 0094 3040      		sbci r19,hi8(-(-1))
+ 126               	.LVL8:
+ 127               	.L12:
+ 128 0096 3093 CD00 		sts (204)+1,r19
+ 129 009a 2093 CC00 		sts 204,r18
+ 130               	.LSM12:
+ 131 009e D092 CA00 		sts 202,r13
+ 132               	.LSM13:
+ 133 00a2 80E0      		ldi r24,lo8(57600)
+ 134 00a4 E816      		cp r14,r24
+ 135 00a6 81EE      		ldi r24,hi8(57600)
+ 136 00a8 F806      		cpc r15,r24
+ 137 00aa 80E0      		ldi r24,hlo8(57600)
+ 138 00ac 0807      		cpc r16,r24
+ 139 00ae 80E0      		ldi r24,hhi8(57600)
+ 140 00b0 1807      		cpc r17,r24
+ 141 00b2 01F0      		breq .L13
+ 142 00b4 82E0      		ldi r24,lo8(2)
+ 143 00b6 00C0      		rjmp .L14
+ 144               	.L13:
+ 145 00b8 80E0      		ldi r24,lo8(0)
+ 146               	.L14:
+ 147 00ba 8093 C800 		sts 200,r24
+ 148               	.LSM14:
+ 149 00be 88E9      		ldi r24,lo8(-104)
+ 150 00c0 8093 C900 		sts 201,r24
+ 151               	/* epilogue start */
+ 152               	.LSM15:
+ 153 00c4 1F91      		pop r17
+ 154 00c6 0F91      		pop r16
+ 155 00c8 FF90      		pop r15
+ 156 00ca EF90      		pop r14
+ 157 00cc DF90      		pop r13
+ 158               	.LVL9:
+ 159 00ce 0895      		ret
+ 160               	.LFE97:
+ 162               		.section	.text.__vector_23,"ax",@progbits
+ 163               	.global	__vector_23
+ 165               	__vector_23:
+ 166               	.LFB98:
+ 167               	.LSM16:
+ 168 0000 1F92      		push __zero_reg__
+ 169 0002 0F92      		push r0
+ 170 0004 0FB6      		in r0,__SREG__
+ 171 0006 0F92      		push r0
+ 172 0008 1124      		clr __zero_reg__
+ 173 000a 2F93      		push r18
+ 174 000c 8F93      		push r24
+ 175 000e 9F93      		push r25
+ 176 0010 EF93      		push r30
+ 177 0012 FF93      		push r31
+ 178               	/* prologue: Signal */
+ 179               	/* frame size = 0 */
+ 180               	.LSM17:
+ 181 0014 9091 CE00 		lds r25,206
+ 182               	.LVL10:
+ 183               	.LSM18:
+ 184 0018 8EB3      		in r24,62-32
+ 185 001a 8430      		cpi r24,lo8(4)
+ 186 001c 01F4      		brne .L22
+ 187               	.LBB119:
+ 188               	.LBB120:
+ 189               	.LSM19:
+ 190 001e E091 0000 		lds r30,USARTtoUSB_Buffer+128
+ 191 0022 F091 0000 		lds r31,(USARTtoUSB_Buffer+128)+1
+ 192 0026 9083      		st Z,r25
+ 193               	.LSM20:
+ 194 0028 E091 0000 		lds r30,USARTtoUSB_Buffer+128
+ 195 002c F091 0000 		lds r31,(USARTtoUSB_Buffer+128)+1
+ 196 0030 CF01      		movw r24,r30
+ 197 0032 0196      		adiw r24,1
+ 198 0034 9093 0000 		sts (USARTtoUSB_Buffer+128)+1,r25
+ 199 0038 8093 0000 		sts USARTtoUSB_Buffer+128,r24
+ 200 003c 8050      		subi r24,lo8(USARTtoUSB_Buffer+128)
+ 201 003e 9040      		sbci r25,hi8(USARTtoUSB_Buffer+128)
+ 202 0040 01F4      		brne .L21
+ 203               	.LSM21:
+ 204 0042 80E0      		ldi r24,lo8(USARTtoUSB_Buffer)
+ 205 0044 90E0      		ldi r25,hi8(USARTtoUSB_Buffer)
+ 206 0046 9283      		std Z+2,r25
+ 207 0048 8183      		std Z+1,r24
+ 208               	.L21:
+ 209               	.LBB121:
+ 210               	.LSM22:
+ 211 004a 9FB7      		in r25,__SREG__
+ 212               	.LVL11:
+ 213               	.LBB122:
+ 214               	.LBB123:
+ 215               	.LSM23:
+ 216               	/* #APP */
+ 217               	 ;  50 "/Applications/Arduino.app/Contents/Resources/Java/hardware/tools/avr/bin/../lib/gcc/avr/4.3
+ 218 004c F894      		cli
+ 219               	 ;  0 "" 2
+ 220               	/* #NOAPP */
+ 221               	.LBE123:
+ 222               	.LBE122:
+ 223               	.LSM24:
+ 224 004e 8091 0000 		lds r24,USARTtoUSB_Buffer+132
+ 225 0052 8F5F      		subi r24,lo8(-(1))
+ 226 0054 8093 0000 		sts USARTtoUSB_Buffer+132,r24
+ 227               	.LBB124:
+ 228               	.LBB125:
+ 229               	.LSM25:
+ 230 0058 9FBF      		out __SREG__,r25
+ 231               	.LSM26:
+ 232               	.LVL12:
+ 233               	.L22:
+ 234               	/* epilogue start */
+ 235               	.LBE125:
+ 236               	.LBE124:
+ 237               	.LBE121:
+ 238               	.LBE120:
+ 239               	.LBE119:
+ 240               	.LSM27:
+ 241 005a FF91      		pop r31
+ 242 005c EF91      		pop r30
+ 243 005e 9F91      		pop r25
+ 244               	.LVL13:
+ 245 0060 8F91      		pop r24
+ 246 0062 2F91      		pop r18
+ 247 0064 0F90      		pop r0
+ 248 0066 0FBE      		out __SREG__,r0
+ 249 0068 0F90      		pop r0
+ 250 006a 1F90      		pop __zero_reg__
+ 251 006c 1895      		reti
+ 252               	.LFE98:
+ 254               		.section	.text.EVENT_CDC_Device_ControLineStateChanged,"ax",@progbits
+ 255               	.global	EVENT_CDC_Device_ControLineStateChanged
+ 257               	EVENT_CDC_Device_ControLineStateChanged:
+ 258               	.LFB99:
+ 259               	.LSM28:
+ 260               	.LVL14:
+ 261               	/* prologue: function */
+ 262               	/* frame size = 0 */
+ 263               	.LSM29:
+ 264 0000 FC01      		movw r30,r24
+ 265 0002 8585      		ldd r24,Z+13
+ 266               	.LVL15:
+ 267 0004 80FF      		sbrs r24,0
+ 268 0006 00C0      		rjmp .L24
+ 269               	.LSM30:
+ 270 0008 2898      		cbi 37-32,0
+ 271 000a 0895      		ret
+ 272               	.L24:
+ 273               	.LSM31:
+ 274 000c 289A      		sbi 37-32,0
+ 275 000e 0895      		ret
+ 276               	.LFE99:
+ 278               		.section	.text.EVENT_USB_Device_UnhandledControlRequest,"ax",@progbits
+ 279               	.global	EVENT_USB_Device_UnhandledControlRequest
+ 281               	EVENT_USB_Device_UnhandledControlRequest:
+ 282               	.LFB96:
+ 283               	.LSM32:
+ 284               	/* prologue: function */
+ 285               	/* frame size = 0 */
+ 286               	.LSM33:
+ 287 0000 80E0      		ldi r24,lo8(VirtualSerial_CDC_Interface)
+ 288 0002 90E0      		ldi r25,hi8(VirtualSerial_CDC_Interface)
+ 289 0004 0E94 0000 		call CDC_Device_ProcessControlRequest
+ 290               	/* epilogue start */
+ 291               	.LSM34:
+ 292 0008 0895      		ret
+ 293               	.LFE96:
+ 295               		.section	.text.EVENT_USB_Device_ConfigurationChanged,"ax",@progbits
+ 296               	.global	EVENT_USB_Device_ConfigurationChanged
+ 298               	EVENT_USB_Device_ConfigurationChanged:
+ 299               	.LFB95:
+ 300               	.LSM35:
+ 301               	/* prologue: function */
+ 302               	/* frame size = 0 */
+ 303               	.LSM36:
+ 304 0000 80E0      		ldi r24,lo8(VirtualSerial_CDC_Interface)
+ 305 0002 90E0      		ldi r25,hi8(VirtualSerial_CDC_Interface)
+ 306 0004 0E94 0000 		call CDC_Device_ConfigureEndpoints
+ 307               	/* epilogue start */
+ 308               	.LSM37:
+ 309 0008 0895      		ret
+ 310               	.LFE95:
+ 312               		.section	.text.SetupHardware,"ax",@progbits
+ 313               	.global	SetupHardware
+ 315               	SetupHardware:
+ 316               	.LFB94:
+ 317               	.LSM38:
+ 318               	/* prologue: function */
+ 319               	/* frame size = 0 */
+ 320               	.LSM39:
+ 321 0000 84B7      		in r24,84-32
+ 322 0002 877F      		andi r24,lo8(-9)
+ 323 0004 84BF      		out 84-32,r24
+ 324               	.LSM40:
+ 325 0006 28E1      		ldi r18,lo8(24)
+ 326               	/* #APP */
+ 327               	 ;  143 "Arduino-usbserial.c" 1
+ 328 0008 0FB6      		in __tmp_reg__, __SREG__
+ 329 000a F894      		cli
+ 330 000c 2093 6000 		sts 96, r18
+ 331 0010 1092 6000 		sts 96, __zero_reg__
+ 332 0014 0FBE      		out __SREG__,__tmp_reg__
+ 333               		
+ 334               	 ;  0 "" 2
+ 335               	/* #NOAPP */
+ 336               	.LBB126:
+ 337               	.LBB127:
+ 338               	.LSM41:
+ 339 0016 87E6      		ldi r24,lo8(103)
+ 340 0018 90E0      		ldi r25,hi8(103)
+ 341 001a 9093 CD00 		sts (204)+1,r25
+ 342 001e 8093 CC00 		sts 204,r24
+ 343               	.LSM42:
+ 344 0022 86E0      		ldi r24,lo8(6)
+ 345 0024 8093 CA00 		sts 202,r24
+ 346               	.LSM43:
+ 347 0028 1092 C800 		sts 200,__zero_reg__
+ 348               	.LSM44:
+ 349 002c 2093 C900 		sts 201,r18
+ 350               	.LSM45:
+ 351 0030 539A      		sbi 42-32,3
+ 352               	.LSM46:
+ 353 0032 5A9A      		sbi 43-32,2
+ 354               	.LBE127:
+ 355               	.LBE126:
+ 356               	.LBB128:
+ 357               	.LBB129:
+ 358               	.LSM47:
+ 359 0034 8AB1      		in r24,42-32
+ 360 0036 8063      		ori r24,lo8(48)
+ 361 0038 8AB9      		out 42-32,r24
+ 362               	.LSM48:
+ 363 003a 8BB1      		in r24,43-32
+ 364 003c 8063      		ori r24,lo8(48)
+ 365 003e 8BB9      		out 43-32,r24
+ 366               	.LBE129:
+ 367               	.LBE128:
+ 368               	.LSM49:
+ 369 0040 0E94 0000 		call USB_Init
+ 370               	.LSM50:
+ 371 0044 84E0      		ldi r24,lo8(4)
+ 372 0046 85BD      		out 69-32,r24
+ 373               	.LSM51:
+ 374 0048 289A      		sbi 37-32,0
+ 375               	.LSM52:
+ 376 004a 209A      		sbi 36-32,0
+ 377               	/* epilogue start */
+ 378               	.LSM53:
+ 379 004c 0895      		ret
+ 380               	.LFE94:
+ 382               		.section	.text.main,"ax",@progbits
+ 383               	.global	main
+ 385               	main:
+ 386               	.LFB93:
+ 387               	.LSM54:
+ 388 0000 EF92      		push r14
+ 389 0002 FF92      		push r15
+ 390 0004 0F93      		push r16
+ 391 0006 1F93      		push r17
+ 392 0008 CF93      		push r28
+ 393 000a DF93      		push r29
+ 394               	/* prologue: function */
+ 395               	/* frame size = 0 */
+ 396               	.LSM55:
+ 397 000c 0E94 0000 		call SetupHardware
+ 398               	.LBB130:
+ 399               	.LBB131:
+ 400               	.LBB132:
+ 401               	.LSM56:
+ 402 0010 2FB7      		in r18,__SREG__
+ 403               	.LBB133:
+ 404               	.LBB134:
+ 405               	.LSM57:
+ 406               	/* #APP */
+ 407               	 ;  50 "/Applications/Arduino.app/Contents/Resources/Java/hardware/tools/avr/bin/../lib/gcc/avr/4.3
+ 408 0012 F894      		cli
+ 409               	 ;  0 "" 2
+ 410               	/* #NOAPP */
+ 411               	.LBE134:
+ 412               	.LBE133:
+ 413               	.LSM58:
+ 414 0014 80E0      		ldi r24,lo8(USBtoUSART_Buffer)
+ 415 0016 90E0      		ldi r25,hi8(USBtoUSART_Buffer)
+ 416 0018 9093 0000 		sts (USBtoUSART_Buffer+128)+1,r25
+ 417 001c 8093 0000 		sts USBtoUSART_Buffer+128,r24
+ 418               	.LSM59:
+ 419 0020 9093 0000 		sts (USBtoUSART_Buffer+130)+1,r25
+ 420 0024 8093 0000 		sts USBtoUSART_Buffer+130,r24
+ 421               	.LBB135:
+ 422               	.LBB136:
+ 423               	.LSM60:
+ 424 0028 2FBF      		out __SREG__,r18
+ 425               	.LSM61:
+ 426               	.LBE136:
+ 427               	.LBE135:
+ 428               	.LBE132:
+ 429               	.LBE131:
+ 430               	.LBE130:
+ 431               	.LBB137:
+ 432               	.LBB138:
+ 433               	.LBB139:
+ 434               	.LSM62:
+ 435 002a 2FB7      		in r18,__SREG__
+ 436               	.LBB140:
+ 437               	.LBB141:
+ 438               	.LSM63:
+ 439               	/* #APP */
+ 440               	 ;  50 "/Applications/Arduino.app/Contents/Resources/Java/hardware/tools/avr/bin/../lib/gcc/avr/4.3
+ 441 002c F894      		cli
+ 442               	 ;  0 "" 2
+ 443               	/* #NOAPP */
+ 444               	.LBE141:
+ 445               	.LBE140:
+ 446               	.LSM64:
+ 447 002e 80E0      		ldi r24,lo8(USARTtoUSB_Buffer)
+ 448 0030 90E0      		ldi r25,hi8(USARTtoUSB_Buffer)
+ 449 0032 9093 0000 		sts (USARTtoUSB_Buffer+128)+1,r25
+ 450 0036 8093 0000 		sts USARTtoUSB_Buffer+128,r24
+ 451               	.LSM65:
+ 452 003a 9093 0000 		sts (USARTtoUSB_Buffer+130)+1,r25
+ 453 003e 8093 0000 		sts USARTtoUSB_Buffer+130,r24
+ 454               	.LBB142:
+ 455               	.LBB143:
+ 456               	.LSM66:
+ 457 0042 2FBF      		out __SREG__,r18
+ 458               	.LSM67:
+ 459               	.LBE143:
+ 460               	.LBE142:
+ 461               	.LBE139:
+ 462               	.LBE138:
+ 463               	.LBE137:
+ 464               	.LSM68:
+ 465               	/* #APP */
+ 466               	 ;  87 "Arduino-usbserial.c" 1
+ 467 0044 7894      		sei
+ 468               	 ;  0 "" 2
+ 469               	/* #NOAPP */
+ 470               	.LBB144:
+ 471               	.LBB145:
+ 472               	.LBB146:
+ 473               	.LBB147:
+ 474               	.LSM69:
+ 475 0046 C0E0      		ldi r28,lo8(USBtoUSART_Buffer)
+ 476 0048 D0E0      		ldi r29,hi8(USBtoUSART_Buffer)
+ 477               	.LBE147:
+ 478               	.LBE146:
+ 479               	.LBE145:
+ 480               	.LBB155:
+ 481               	.LBB156:
+ 482               	.LSM70:
+ 483 004a 50E0      		ldi r21,lo8(USARTtoUSB_Buffer)
+ 484 004c E52E      		mov r14,r21
+ 485 004e 50E0      		ldi r21,hi8(USARTtoUSB_Buffer)
+ 486 0050 F52E      		mov r15,r21
+ 487               	.LBE156:
+ 488               	.LBE155:
+ 489               	.LSM71:
+ 490 0052 03E0      		ldi r16,lo8(3)
+ 491               	.LVL16:
+ 492               	.L45:
+ 493               	.LBB163:
+ 494               	.LBB164:
+ 495               	.LBB165:
+ 496               	.LBB166:
+ 497               	.LBB167:
+ 498               	.LSM72:
+ 499 0054 8FB7      		in r24,__SREG__
+ 500               	.LBB168:
+ 501               	.LBB169:
+ 502               	.LSM73:
+ 503               	/* #APP */
+ 504               	 ;  50 "/Applications/Arduino.app/Contents/Resources/Java/hardware/tools/avr/bin/../lib/gcc/avr/4.3
+ 505 0056 F894      		cli
+ 506               	 ;  0 "" 2
+ 507               	/* #NOAPP */
+ 508               	.LBE169:
+ 509               	.LBE168:
+ 510               	.LSM74:
+ 511 0058 9091 0000 		lds r25,USBtoUSART_Buffer+132
+ 512               	.LVL17:
+ 513               	.LBB170:
+ 514               	.LBB171:
+ 515               	.LSM75:
+ 516 005c 8FBF      		out __SREG__,r24
+ 517               	.LSM76:
+ 518               	.LBE171:
+ 519               	.LBE170:
+ 520               	.LBE167:
+ 521               	.LBE166:
+ 522               	.LBE165:
+ 523               	.LBE164:
+ 524               	.LBE163:
+ 525               	.LSM77:
+ 526 005e 9038      		cpi r25,lo8(-128)
+ 527 0060 01F0      		breq .L34
+ 528               	.LBB172:
+ 529               	.LSM78:
+ 530 0062 80E0      		ldi r24,lo8(VirtualSerial_CDC_Interface)
+ 531 0064 90E0      		ldi r25,hi8(VirtualSerial_CDC_Interface)
+ 532 0066 0E94 0000 		call CDC_Device_ReceiveByte
+ 533               	.LVL18:
+ 534               	.LSM79:
+ 535 006a 97FD      		sbrc r25,7
+ 536 006c 00C0      		rjmp .L34
+ 537               	.LVL19:
+ 538               	.LBB154:
+ 539               	.LBB153:
+ 540               	.LSM80:
+ 541 006e E091 0000 		lds r30,USBtoUSART_Buffer+128
+ 542 0072 F091 0000 		lds r31,(USBtoUSART_Buffer+128)+1
+ 543 0076 8083      		st Z,r24
+ 544               	.LSM81:
+ 545 0078 E091 0000 		lds r30,USBtoUSART_Buffer+128
+ 546 007c F091 0000 		lds r31,(USBtoUSART_Buffer+128)+1
+ 547 0080 CF01      		movw r24,r30
+ 548               	.LVL20:
+ 549 0082 0196      		adiw r24,1
+ 550 0084 9093 0000 		sts (USBtoUSART_Buffer+128)+1,r25
+ 551 0088 8093 0000 		sts USBtoUSART_Buffer+128,r24
+ 552 008c 8050      		subi r24,lo8(USBtoUSART_Buffer+128)
+ 553 008e 9040      		sbci r25,hi8(USBtoUSART_Buffer+128)
+ 554 0090 01F4      		brne .L35
+ 555               	.LSM82:
+ 556 0092 D283      		std Z+2,r29
+ 557 0094 C183      		std Z+1,r28
+ 558               	.L35:
+ 559               	.LBB148:
+ 560               	.LSM83:
+ 561 0096 9FB7      		in r25,__SREG__
+ 562               	.LBB149:
+ 563               	.LBB150:
+ 564               	.LSM84:
+ 565               	/* #APP */
+ 566               	 ;  50 "/Applications/Arduino.app/Contents/Resources/Java/hardware/tools/avr/bin/../lib/gcc/avr/4.3
+ 567 0098 F894      		cli
+ 568               	 ;  0 "" 2
+ 569               	/* #NOAPP */
+ 570               	.LBE150:
+ 571               	.LBE149:
+ 572               	.LSM85:
+ 573 009a 8091 0000 		lds r24,USBtoUSART_Buffer+132
+ 574 009e 8F5F      		subi r24,lo8(-(1))
+ 575 00a0 8093 0000 		sts USBtoUSART_Buffer+132,r24
+ 576               	.LBB151:
+ 577               	.LBB152:
+ 578               	.LSM86:
+ 579 00a4 9FBF      		out __SREG__,r25
+ 580               	.LSM87:
+ 581               	.LVL21:
+ 582               	.L34:
+ 583               	.LBE152:
+ 584               	.LBE151:
+ 585               	.LBE148:
+ 586               	.LBE153:
+ 587               	.LBE154:
+ 588               	.LBE172:
+ 589               	.LBB173:
+ 590               	.LBB174:
+ 591               	.LBB175:
+ 592               	.LSM88:
+ 593 00a6 8FB7      		in r24,__SREG__
+ 594               	.LVL22:
+ 595               	.LBB176:
+ 596               	.LBB177:
+ 597               	.LSM89:
+ 598               	/* #APP */
+ 599               	 ;  50 "/Applications/Arduino.app/Contents/Resources/Java/hardware/tools/avr/bin/../lib/gcc/avr/4.3
+ 600 00a8 F894      		cli
+ 601               	 ;  0 "" 2
+ 602               	/* #NOAPP */
+ 603               	.LBE177:
+ 604               	.LBE176:
+ 605               	.LSM90:
+ 606 00aa 1091 0000 		lds r17,USARTtoUSB_Buffer+132
+ 607               	.LBB178:
+ 608               	.LBB179:
+ 609               	.LSM91:
+ 610 00ae 8FBF      		out __SREG__,r24
+ 611               	.LSM92:
+ 612               	.LBE179:
+ 613               	.LBE178:
+ 614               	.LBE175:
+ 615               	.LBE174:
+ 616               	.LBE173:
+ 617               	.LSM93:
+ 618 00b0 A899      		sbic 53-32,0
+ 619 00b2 00C0      		rjmp .L36
+ 620 00b4 1136      		cpi r17,lo8(97)
+ 621 00b6 00F4      		brsh .+2
+ 622 00b8 00C0      		rjmp .L37
+ 623               	.L36:
+ 624               	.LSM94:
+ 625 00ba A89A      		sbi 53-32,0
+ 626               	.LSM95:
+ 627 00bc 8091 0000 		lds r24,USARTtoUSB_Buffer+132
+ 628 00c0 8823      		tst r24
+ 629 00c2 01F0      		breq .L48
+ 630               	.LBB180:
+ 631               	.LBB181:
+ 632               	.LSM96:
+ 633 00c4 5D98      		cbi 43-32,5
+ 634               	.LBE181:
+ 635               	.LBE180:
+ 636               	.LSM97:
+ 637 00c6 0093 0000 		sts PulseMSRemaining,r16
+ 638 00ca 00C0      		rjmp .L48
+ 639               	.L40:
+ 640               	.LBB182:
+ 641               	.LBB162:
+ 642               	.LSM98:
+ 643 00cc E091 0000 		lds r30,USARTtoUSB_Buffer+130
+ 644 00d0 F091 0000 		lds r31,(USARTtoUSB_Buffer+130)+1
+ 645 00d4 6191      		ld r22,Z+
+ 646               	.LVL23:
+ 647               	.LSM99:
+ 648 00d6 F093 0000 		sts (USARTtoUSB_Buffer+130)+1,r31
+ 649 00da E093 0000 		sts USARTtoUSB_Buffer+130,r30
+ 650 00de E050      		subi r30,lo8(USARTtoUSB_Buffer+128)
+ 651 00e0 F040      		sbci r31,hi8(USARTtoUSB_Buffer+128)
+ 652 00e2 01F4      		brne .L39
+ 653               	.LSM100:
+ 654 00e4 F092 0000 		sts (USARTtoUSB_Buffer+130)+1,r15
+ 655 00e8 E092 0000 		sts USARTtoUSB_Buffer+130,r14
+ 656               	.L39:
+ 657               	.LBB157:
+ 658               	.LSM101:
+ 659 00ec 9FB7      		in r25,__SREG__
+ 660               	.LVL24:
+ 661               	.LBB158:
+ 662               	.LBB159:
+ 663               	.LSM102:
+ 664               	/* #APP */
+ 665               	 ;  50 "/Applications/Arduino.app/Contents/Resources/Java/hardware/tools/avr/bin/../lib/gcc/avr/4.3
+ 666 00ee F894      		cli
+ 667               	 ;  0 "" 2
+ 668               	/* #NOAPP */
+ 669               	.LBE159:
+ 670               	.LBE158:
+ 671               	.LSM103:
+ 672 00f0 8091 0000 		lds r24,USARTtoUSB_Buffer+132
+ 673 00f4 8150      		subi r24,lo8(-(-1))
+ 674 00f6 8093 0000 		sts USARTtoUSB_Buffer+132,r24
+ 675               	.LBB160:
+ 676               	.LBB161:
+ 677               	.LSM104:
+ 678 00fa 9FBF      		out __SREG__,r25
+ 679               	.LSM105:
+ 680               	.LBE161:
+ 681               	.LBE160:
+ 682               	.LBE157:
+ 683               	.LBE162:
+ 684               	.LBE182:
+ 685               	.LSM106:
+ 686 00fc 80E0      		ldi r24,lo8(VirtualSerial_CDC_Interface)
+ 687 00fe 90E0      		ldi r25,hi8(VirtualSerial_CDC_Interface)
+ 688 0100 0E94 0000 		call CDC_Device_SendByte
+ 689               	.LVL25:
+ 690 0104 1150      		subi r17,lo8(-(-1))
+ 691               	.LVL26:
+ 692               	.L48:
+ 693               	.LSM107:
+ 694 0106 1123      		tst r17
+ 695 0108 01F4      		brne .L40
+ 696               	.LSM108:
+ 697 010a 8091 0000 		lds r24,PulseMSRemaining
+ 698 010e 8823      		tst r24
+ 699 0110 01F0      		breq .L41
+ 700 0112 8091 0000 		lds r24,PulseMSRemaining
+ 701 0116 8150      		subi r24,lo8(-(-1))
+ 702 0118 8093 0000 		sts PulseMSRemaining,r24
+ 703 011c 8091 0000 		lds r24,PulseMSRemaining
+ 704 0120 8823      		tst r24
+ 705 0122 01F4      		brne .L41
+ 706               	.LBB183:
+ 707               	.LBB184:
+ 708               	.LSM109:
+ 709 0124 5D9A      		sbi 43-32,5
+ 710               	.L41:
+ 711               	.LBE184:
+ 712               	.LBE183:
+ 713               	.LSM110:
+ 714 0126 8091 0000 		lds r24,PulseMSRemaining+1
+ 715 012a 8823      		tst r24
+ 716 012c 01F0      		breq .L37
+ 717 012e 8091 0000 		lds r24,PulseMSRemaining+1
+ 718 0132 8150      		subi r24,lo8(-(-1))
+ 719 0134 8093 0000 		sts PulseMSRemaining+1,r24
+ 720 0138 8091 0000 		lds r24,PulseMSRemaining+1
+ 721 013c 8823      		tst r24
+ 722 013e 01F4      		brne .L37
+ 723               	.LBB185:
+ 724               	.LBB186:
+ 725               	.LSM111:
+ 726 0140 5C9A      		sbi 43-32,4
+ 727               	.L37:
+ 728               	.LBE186:
+ 729               	.LBE185:
+ 730               	.LBB187:
+ 731               	.LBB188:
+ 732               	.LBB189:
+ 733               	.LBB190:
+ 734               	.LBB191:
+ 735               	.LSM112:
+ 736 0142 8FB7      		in r24,__SREG__
+ 737               	.LBB192:
+ 738               	.LBB193:
+ 739               	.LSM113:
+ 740               	/* #APP */
+ 741               	 ;  50 "/Applications/Arduino.app/Contents/Resources/Java/hardware/tools/avr/bin/../lib/gcc/avr/4.3
+ 742 0144 F894      		cli
+ 743               	 ;  0 "" 2
+ 744               	/* #NOAPP */
+ 745               	.LBE193:
+ 746               	.LBE192:
+ 747               	.LSM114:
+ 748 0146 9091 0000 		lds r25,USBtoUSART_Buffer+132
+ 749               	.LVL27:
+ 750               	.LBB194:
+ 751               	.LBB195:
+ 752               	.LSM115:
+ 753 014a 8FBF      		out __SREG__,r24
+ 754               	.LSM116:
+ 755               	.LBE195:
+ 756               	.LBE194:
+ 757               	.LBE191:
+ 758               	.LBE190:
+ 759               	.LBE189:
+ 760               	.LBE188:
+ 761               	.LBE187:
+ 762               	.LSM117:
+ 763 014c 9923      		tst r25
+ 764 014e 01F0      		breq .L42
+ 765               	.LBB196:
+ 766               	.LBB197:
+ 767               	.LSM118:
+ 768 0150 E091 0000 		lds r30,USBtoUSART_Buffer+130
+ 769 0154 F091 0000 		lds r31,(USBtoUSART_Buffer+130)+1
+ 770 0158 2191      		ld r18,Z+
+ 771               	.LVL28:
+ 772               	.LSM119:
+ 773 015a F093 0000 		sts (USBtoUSART_Buffer+130)+1,r31
+ 774 015e E093 0000 		sts USBtoUSART_Buffer+130,r30
+ 775 0162 E050      		subi r30,lo8(USBtoUSART_Buffer+128)
+ 776 0164 F040      		sbci r31,hi8(USBtoUSART_Buffer+128)
+ 777 0166 01F4      		brne .L43
+ 778               	.LSM120:
+ 779 0168 D093 0000 		sts (USBtoUSART_Buffer+130)+1,r29
+ 780 016c C093 0000 		sts USBtoUSART_Buffer+130,r28
+ 781               	.L43:
+ 782               	.LBB198:
+ 783               	.LSM121:
+ 784 0170 9FB7      		in r25,__SREG__
+ 785               	.LVL29:
+ 786               	.LBB199:
+ 787               	.LBB200:
+ 788               	.LSM122:
+ 789               	/* #APP */
+ 790               	 ;  50 "/Applications/Arduino.app/Contents/Resources/Java/hardware/tools/avr/bin/../lib/gcc/avr/4.3
+ 791 0172 F894      		cli
+ 792               	 ;  0 "" 2
+ 793               	/* #NOAPP */
+ 794               	.LBE200:
+ 795               	.LBE199:
+ 796               	.LSM123:
+ 797 0174 8091 0000 		lds r24,USBtoUSART_Buffer+132
+ 798 0178 8150      		subi r24,lo8(-(-1))
+ 799 017a 8093 0000 		sts USBtoUSART_Buffer+132,r24
+ 800               	.LBB201:
+ 801               	.LBB202:
+ 802               	.LSM124:
+ 803 017e 9FBF      		out __SREG__,r25
+ 804               	.LSM125:
+ 805               	.L44:
+ 806               	.LBE202:
+ 807               	.LBE201:
+ 808               	.LBE198:
+ 809               	.LBE197:
+ 810               	.LBE196:
+ 811               	.LBB203:
+ 812               	.LBB204:
+ 813               	.LSM126:
+ 814 0180 8091 C800 		lds r24,200
+ 815 0184 85FF      		sbrs r24,5
+ 816 0186 00C0      		rjmp .L44
+ 817               	.LSM127:
+ 818 0188 2093 CE00 		sts 206,r18
+ 819               	.LBE204:
+ 820               	.LBE203:
+ 821               	.LBB205:
+ 822               	.LBB206:
+ 823               	.LSM128:
+ 824 018c 5C98      		cbi 43-32,4
+ 825               	.LBE206:
+ 826               	.LBE205:
+ 827               	.LSM129:
+ 828 018e 0093 0000 		sts PulseMSRemaining+1,r16
+ 829               	.LVL30:
+ 830               	.L42:
+ 831               	.LSM130:
+ 832 0192 80E0      		ldi r24,lo8(VirtualSerial_CDC_Interface)
+ 833 0194 90E0      		ldi r25,hi8(VirtualSerial_CDC_Interface)
+ 834 0196 0E94 0000 		call CDC_Device_USBTask
+ 835               	.LVL31:
+ 836               	.LSM131:
+ 837 019a 0E94 0000 		call USB_USBTask
+ 838 019e 00C0      		rjmp .L45
+ 839               	.LBE144:
+ 840               	.LFE93:
+ 842               	.global	VirtualSerial_CDC_Interface
+ 843               		.data
+ 846               	VirtualSerial_CDC_Interface:
+ 847 0000 00        		.byte	0
+ 848 0001 03        		.byte	3
+ 849 0002 4000      		.word	64
+ 850 0004 00        		.byte	0
+ 851 0005 04        		.byte	4
+ 852 0006 4000      		.word	64
+ 853 0008 00        		.byte	0
+ 854 0009 02        		.byte	2
+ 855 000a 0800      		.word	8
+ 856 000c 00        		.byte	0
+ 857 000d 0000 0000 		.skip 9,0
+ 857      0000 0000 
+ 857      00
+ 858               		.comm USBtoUSART_Buffer,133,1
+ 859               		.comm USARTtoUSB_Buffer,133,1
+ 860               		.comm PulseMSRemaining,3,1
+ 933               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 Arduino-usbserial.c
+/var/folders/8k/v9gprwvn01zdxs6cz2zwqlph0000gn/T//cct1RPgX.s:2      *ABS*:0000003f __SREG__
+/var/folders/8k/v9gprwvn01zdxs6cz2zwqlph0000gn/T//cct1RPgX.s:3      *ABS*:0000003e __SP_H__
+/var/folders/8k/v9gprwvn01zdxs6cz2zwqlph0000gn/T//cct1RPgX.s:4      *ABS*:0000003d __SP_L__
+/var/folders/8k/v9gprwvn01zdxs6cz2zwqlph0000gn/T//cct1RPgX.s:5      *ABS*:00000034 __CCP__
+/var/folders/8k/v9gprwvn01zdxs6cz2zwqlph0000gn/T//cct1RPgX.s:6      *ABS*:00000000 __tmp_reg__
+/var/folders/8k/v9gprwvn01zdxs6cz2zwqlph0000gn/T//cct1RPgX.s:7      *ABS*:00000001 __zero_reg__
+/var/folders/8k/v9gprwvn01zdxs6cz2zwqlph0000gn/T//cct1RPgX.s:21     .text.EVENT_CDC_Device_LineEncodingChanged:00000000 EVENT_CDC_Device_LineEncodingChanged
+/var/folders/8k/v9gprwvn01zdxs6cz2zwqlph0000gn/T//cct1RPgX.s:165    .text.__vector_23:00000000 __vector_23
+                            *COM*:00000085 USARTtoUSB_Buffer
+/var/folders/8k/v9gprwvn01zdxs6cz2zwqlph0000gn/T//cct1RPgX.s:257    .text.EVENT_CDC_Device_ControLineStateChanged:00000000 EVENT_CDC_Device_ControLineStateChanged
+/var/folders/8k/v9gprwvn01zdxs6cz2zwqlph0000gn/T//cct1RPgX.s:281    .text.EVENT_USB_Device_UnhandledControlRequest:00000000 EVENT_USB_Device_UnhandledControlRequest
+/var/folders/8k/v9gprwvn01zdxs6cz2zwqlph0000gn/T//cct1RPgX.s:846    .data:00000000 VirtualSerial_CDC_Interface
+/var/folders/8k/v9gprwvn01zdxs6cz2zwqlph0000gn/T//cct1RPgX.s:298    .text.EVENT_USB_Device_ConfigurationChanged:00000000 EVENT_USB_Device_ConfigurationChanged
+/var/folders/8k/v9gprwvn01zdxs6cz2zwqlph0000gn/T//cct1RPgX.s:315    .text.SetupHardware:00000000 SetupHardware
+/var/folders/8k/v9gprwvn01zdxs6cz2zwqlph0000gn/T//cct1RPgX.s:385    .text.main:00000000 main
+                            *COM*:00000085 USBtoUSART_Buffer
+                            *COM*:00000003 PulseMSRemaining
+
+UNDEFINED SYMBOLS
+__do_copy_data
+__do_clear_bss
+__udivmodsi4
+CDC_Device_ProcessControlRequest
+CDC_Device_ConfigureEndpoints
+USB_Init
+CDC_Device_ReceiveByte
+CDC_Device_SendByte
+CDC_Device_USBTask
+USB_USBTask

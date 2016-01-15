@@ -1,0 +1,10 @@
+Firmware Change History.
+
+Ver. 1.0.4
+-. Reset to default - Reset Z offset vlaue
+-. Change DEFAULT_EJERK, DEFAULT_MAX_ACCELERATION, DEFAULT_ACCELERATION
+-. Extrude filamnet - Fan on 
+-. Z Raise +10
+-. Automaticcaly Fan control according to the temp
+-. Set Z offset limit
+-. Apply 4 point autoleveling
