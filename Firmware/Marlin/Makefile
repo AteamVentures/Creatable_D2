@@ -49,7 +49,7 @@ AVR_TOOLS_PATH ?= /Applications/Arduino.app/Contents/Resources/Java/hardware/too
 #Programmer configuration
 UPLOAD_RATE        ?= 115200
 AVRDUDE_PROGRAMMER ?= stk500
-UPLOAD_PORT        ?= /dev/tty.usbmodem1a121131
+UPLOAD_PORT        ?= /dev/tty.usbmodem14231
 #UPLOAD_PORT        ?= /dev/tty.usbmodem1a1231
 #UPLOAD_PORT        ?= /dev/tty.usbserial-A9019PO0
 
